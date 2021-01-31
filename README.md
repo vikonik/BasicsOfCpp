@@ -1,2 +1,0 @@
-# BasicsOfCpp
-Основы С++
