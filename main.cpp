@@ -1,68 +1,71 @@
+/*
+Написать программу, вычисляющую выражение a * (b + (c / d))
+и выводящую результат с плавающей точкой, где a, b, c, d – целочисленные константы;
+
+Дано целое число, выведите на экран разницу между этим числом и числом 21.
+Если же заданное число больше, чем 21, необходимо вывести удвоенную разницу между этим числом и 21.
+При выполнении задания следует использовать тернарный оператор.
+
+* Написать программу, вычисляющую выражение из первого задания,
+ а переменные для неё инициализировать в другом файле
+
+* Описать трёхмерный целочисленный массив, размером 3х3х3,
+указатель на значения внутри массива и при помощи операции разыменования вывести
+на экран значение центральной ячейки получившегося куба [1][1][1]
+
+*/
+
+
+
 #include <iostream>
 
+using namespace std;
+
+//Для задания 1
+#define CALCULATOR(a,b,c,d)         a * (b + ((float)c / d))//как вариант
+
+extern int a;
+extern int b;
+extern int c;
+extern int d;
+
+float result = 0.0f;
+
+/**/
+float calculator(const int a,const int b,const int c,const int d){
+    float res = 0.0f;
+       res =  ((float)c / d);
+       res += b;
+       res *= a;
+    return res;
+}
 
 
-//1
-int a = 0;
-long b = 0;
-short c = 0;
-unsigned d = 0;
+int value = 25;//Для задания 2
 
-char e = 'A';
+//Для задания 3
+int myMass[3][3][3] = {
+                        {{ 1, 2, 3},{ 4, 5, 6},{ 7, 8, 9}},
+                        {{10,11,12},{13,14,15},{16,17,18}},
+                        {{19,20,21},{22,23,24},{25,26,27}}
+                      };
 
-float f = 0.0;
-double g = 0.0;
-
-
-//2
-enum XO_symbolName{
-	O,
-	X
-};
-
-//3
-char XO_symbol[2] = {'O', 'X'};
-
-//4
-typedef struct {
-	int gameField[3][3];
-	char HUMAN_DOT;
-	char AI_DOT;
-	
-}Game;
-
-
-//5
-typedef union{
-	int myInt;
-	float myFloat;
-	char myChar;
-}MyUnion;
-
-
-typedef struct{
-	int isInt:		1;
-	int isFloat:	1;
-	int isChar:		1;
-	
-}BitFlag;
-
-typedef struct{
-	MyUnion myUnion;
-	BitFlag bitFlag;
-	
-}MyStruct;
-
-MyStruct myStruct;
+int *p_myMass = &myMass[1][1][1];
 
 
 
-int main(void){
-myStruct.bitFlag.isInt = 1;
-myStruct.myUnion.myInt = 123;
-	if(myStruct.bitFlag.isInt)std::cout << myStruct.myUnion.myInt;
-	else std::cout << "???";
-	std::cout << "\r\n";
-  system("pause");
-  return 0;
+
+/**/
+int main()
+{
+
+    result = CALCULATOR(a,b,c,d);
+    cout << "result = " << result << endl;
+
+    (value > 21) ? cout << (value - 21)*2 << endl : cout << (value - 21) << endl;
+
+    cout << "Mas[1][1][1] = " << *p_myMass << endl;
+
+    system("pause");
+    return 0;
 }
