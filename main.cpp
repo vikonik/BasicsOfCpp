@@ -1,71 +1,57 @@
-/*
-Написать программу, вычисляющую выражение a * (b + (c / d))
-и выводящую результат с плавающей точкой, где a, b, c, d – целочисленные константы;
-
-Дано целое число, выведите на экран разницу между этим числом и числом 21.
-Если же заданное число больше, чем 21, необходимо вывести удвоенную разницу между этим числом и 21.
-При выполнении задания следует использовать тернарный оператор.
-
-* Написать программу, вычисляющую выражение из первого задания,
- а переменные для неё инициализировать в другом файле
-
-* Описать трёхмерный целочисленный массив, размером 3х3х3,
-указатель на значения внутри массива и при помощи операции разыменования вывести
-на экран значение центральной ячейки получившегося куба [1][1][1]
-
-*/
-
-
-
 #include <iostream>
+//1. Написать программу, проверяющую что сумма двух чисел лежит в пределах от 10 до 20
+//(включительно), если да – вывести true, в противном случае – false;
 
-using namespace std;
+bool checkSumm(int a, int b){
+	int sum = a + b; 
+	if ((sum >= 10) && (sum <= 20))return true;
+	
+	return false;
+}
 
-//Для задания 1
-#define CALCULATOR(a,b,c,d)         a * (b + ((float)c / d))//как вариант
-
-extern int a;
-extern int b;
-extern int c;
-extern int d;
-
-float result = 0.0f;
-
-/**/
-float calculator(const int a,const int b,const int c,const int d){
-    float res = 0.0f;
-       res =  ((float)c / d);
-       res += b;
-       res *= a;
-    return res;
+//2. Написать программу, проверяющую, является ли некоторое число - натуральным простым.
+//Простое число - это число, которое делится без остатка только на единицу и себя само
+bool checkSimpleNumber(int number){
+	if(number < 2)return false;
+	for(int i = 2; i <= number/2; i++){
+		if(number % i == 0) return false; 
+	}
+	return true;
 }
 
 
-int value = 25;//Для задания 2
+//3. Написать программу, выводящую на экран “истину”, если две целочисленные константы,
+//объявленные в её начале либо равны десяти сами по себе, либо их сумма равна десяти.
+const int A = 10;
+const int B = 0;
+bool checkVar(void){
+	if(A == 10 && B == 10)return true;
+	if((A + B) == 10)return true;
+	return false;
+}
 
-//Для задания 3
-int myMass[3][3][3] = {
-                        {{ 1, 2, 3},{ 4, 5, 6},{ 7, 8, 9}},
-                        {{10,11,12},{13,14,15},{16,17,18}},
-                        {{19,20,21},{22,23,24},{25,26,27}}
-                      };
+//4. * Написать программу, которая определяет является ли год високосным. Каждый 4-й год
+//является високосным, кроме каждого 100-го, при этом каждый 400-й – високосный. Для
+//проверки работы вывести результаты работы программы в консоль
+/*
+Если год високосный, то возвращаем true
+*/
+bool checkYear(int year){
+	if(year % 4 != 0) return false;
+	else
+		if((year % 100 == 0) && (year % 400 != 0)) return false;
+		else return true;
+}
 
-int *p_myMass = &myMass[1][1][1];
-
-
-
-
-/**/
-int main()
-{
-
-    result = CALCULATOR(a,b,c,d);
-    cout << "result = " << result << endl;
-
-    (value > 21) ? cout << (value - 21)*2 << endl : cout << (value - 21) << endl;
-
-    cout << "Mas[1][1][1] = " << *p_myMass << endl;
-
-    system("pause");
-    return 0;
+int main(){
+	std::cout << (checkSumm(5,18) ? "True" : "False") << std::endl;
+	
+	std::cout << (checkSimpleNumber(18) ? "Number is simple" : "Number is't simple") << std::endl;
+	
+	std::cout << (checkVar() ? "True" : "False") << std::endl;
+	
+	std::cout << (checkYear(2005) ? "Leap year" : "Normal year") << std::endl;
+	
+	system("pause");
+	return 0;
 }
